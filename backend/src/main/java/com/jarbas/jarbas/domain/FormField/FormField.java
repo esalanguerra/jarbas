@@ -1,4 +1,4 @@
-package com.jarbas.jarbas.domain.formfield;
+package com.jarbas.jarbas.domain.FormField;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "form_field")
-public class FromField {
+public class FormField {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

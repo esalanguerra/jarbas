@@ -1,4 +1,6 @@
-package com.jarbas.jarbas.domain.formdomain;
+package com.jarbas.jarbas.domain.FormDomain;
+
+import com.jarbas.jarbas.domain.FormField.FormField;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,8 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
-
-import com.jarbas.jarbas.domain.formfield.FormField;
 
 @Entity
 @Table(name = "form_domain")
