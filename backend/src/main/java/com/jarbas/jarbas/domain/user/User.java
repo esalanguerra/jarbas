@@ -1,4 +1,4 @@
-package com.jarbas.jarbas.domain;
+package com.jarbas.jarbas.domain.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
