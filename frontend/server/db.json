@@ -1,0 +1,29 @@
+{
+  "formDomain": [
+    {
+      "id": 1,
+      "title": "Teste",
+      "placeholder": "descrição",
+      "fieldsId": [
+        1
+      ]
+    }
+  ],
+  "formAssociations": [
+    {
+      "id": 1,
+      "formId": [
+        1
+      ],
+      "redirectId": 1
+    }
+  ],
+  "formFields": [
+    {
+      "id": 1,
+      "title": "Teste",
+      "placeholder": "descrição",
+      "type": "text"
+    }
+  ]
+}
