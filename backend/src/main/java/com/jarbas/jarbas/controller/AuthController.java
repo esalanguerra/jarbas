@@ -12,4 +12,14 @@ public class AuthController {
   public ResponseEntity<String> getUser() {
     return ResponseEntity.ok("sucesso!");
   }
+
+  @PostMapping("/login")
+  public ResponseEntity<String> login() {
+    return ResponseEntity.ok("sucesso!");
+  }
+
+  @PostMapping("/register")
+  public ResponseEntity<String> logout() {
+    return ResponseEntity.ok("sucesso!");
+  }
 }
