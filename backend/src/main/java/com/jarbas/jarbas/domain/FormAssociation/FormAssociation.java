@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 import com.jarbas.jarbas.domain.FormDomain.FormDomain;
 
@@ -20,6 +19,29 @@ public class FormAssociation {
   @OneToMany
   private FormDomain[] domains;
 
-  @OneToOne
-  private FormDomain redirect;
+  private int redirectId;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public FormDomain[] getDomains() {
+    return domains;
+  }
+
+  public void setDomains(FormDomain[] domains) {
+    this.domains = domains;
+  }
+
+  public int getRedirectId() {
+    return redirectId;
+  }
+
+  public void setRedirectId(int redirectId) {
+    this.redirectId = redirectId;
+  }
 }

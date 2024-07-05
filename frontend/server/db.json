@@ -2,7 +2,7 @@
   "forms": [
     {
       "id": 1,
-      "form": {
+      "formDomain": {
         "id": 1,
         "title": "Teste",
         "fields": [

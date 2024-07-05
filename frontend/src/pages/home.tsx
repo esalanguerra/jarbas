@@ -1,27 +1,9 @@
 import { useEffect, useState } from "react"
 import { api } from "../config"
-
-interface FieldsInterface {
-  id: number
-  title: string
-  placeholder: string
-  type: string
-}
-
-interface FormInterface {
-  id: number
-  title: string
-  fields: FieldsInterface[]
-}
-
-interface FormDomainInterface {
-  id: number
-  form: FormInterface
-  redirectId: number
-}
+import { FormInterface } from "../interfaces/form.interface"
 
 function Home() {
-  const [data, setData] = useState<FormDomainInterface[]>([])
+  const [data, setData] = useState<FormInterface[]>([])
 
   useEffect(() => {
     api.get("/forms").then((response) => {
@@ -34,10 +16,10 @@ function Home() {
       {
         data.map((formDomain) => {
           return (
-            <form key={formDomain.id} action={`/form/${formDomain.form.id}`} method="post">
-              <h1>{formDomain.form.title}</h1>
+            <form key={formDomain.id} action={`/form/${formDomain.formDomain.id}`} method="post">
+              <h1>{formDomain.formDomain.title}</h1>
               {
-                formDomain.form.fields.map((field) => {
+                formDomain.formDomain.fields.map((field) => {
                   return (
                     <div key={field.id}>
                       <label htmlFor={field.title}>{field.title}</label>
