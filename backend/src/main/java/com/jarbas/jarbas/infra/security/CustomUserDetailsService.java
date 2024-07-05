@@ -1,4 +1,4 @@
-package com.jarbas.jarbas.service.security;
+package com.jarbas.jarbas.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
+  
   @Autowired
   private UserRepository repository;
   

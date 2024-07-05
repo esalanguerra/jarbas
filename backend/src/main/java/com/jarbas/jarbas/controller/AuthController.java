@@ -14,7 +14,7 @@ import com.jarbas.jarbas.dto.LoginRequestDTO;
 import com.jarbas.jarbas.dto.RegisterRequestDTO;
 import com.jarbas.jarbas.dto.ResponseDTO;
 import com.jarbas.jarbas.repositories.UserRepository;
-import com.jarbas.jarbas.service.security.TokenService;
+import com.jarbas.jarbas.infra.security.TokenService;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.jarbas.jarbas.settings.security;
+package com.jarbas.jarbas.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.jarbas.jarbas.service.security.CustomUserDetailsService;
+import com.jarbas.jarbas.infra.security.CustomUserDetailsService;
+import com.jarbas.jarbas.infra.security.SecurityFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
+  
   @Autowired
   private CustomUserDetailsService userDetailsService;
 
@@ -29,14 +30,17 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        .csrf(csrf -> csrf.disable())
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+      .csrf(csrf -> csrf.disable())
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-            .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-            .anyRequest().authenticated())
-        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
-    return http.build();
+        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+        .anyRequest()
+        .authenticated()
+      )
+      .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
+      return http.build();
   }
 
   @Bean
@@ -45,8 +49,7 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-      throws Exception {
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
 }

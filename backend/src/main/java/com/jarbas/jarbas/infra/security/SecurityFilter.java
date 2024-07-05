@@ -1,4 +1,4 @@
-package com.jarbas.jarbas.settings.security;
+package com.jarbas.jarbas.infra.security;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -17,22 +17,32 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.jarbas.jarbas.domain.user.User;
 import com.jarbas.jarbas.repositories.UserRepository;
-import com.jarbas.jarbas.service.security.TokenService;
+import com.jarbas.jarbas.infra.security.TokenService;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
+  
   @Autowired
   TokenService tokenService;
 
   @Autowired
   UserRepository userRepository;
 
+  private String recoverToken(HttpServletRequest request) {
+    var authHeader = request.getHeader("Authorization");
+
+    if (authHeader == null)
+      return null;
+
+    return authHeader.replace("Bearer ", "");
+  }
+
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     var token = this.recoverToken(request);
     var login = tokenService.validateToken(token);
 
-    if(login != null) {
+    if(login != null){
       User user = userRepository.findByEmail(login)
         .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
@@ -44,15 +54,5 @@ public class SecurityFilter extends OncePerRequestFilter {
     };
 
     filterChain.doFilter(request, response);
-  }
-
-  private String recoverToken(HttpServletRequest request) {
-    var authHeader = request.getHeader("Authorization");
-
-    if (authHeader == null) {
-      return null;
-    };
-
-    return authHeader.replace("Bearer ", "");
   }
 }

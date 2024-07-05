@@ -1,4 +1,4 @@
-package com.jarbas.jarbas.http;
+package com.jarbas.jarbas.infra.cors;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -11,6 +11,6 @@ public class CorsHttpConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
             .allowedOrigins("http://localhost:5173")
-            .allowedMethods("GET", "POST", "DELETE", "PUT");
+            .allowedMethods("GET", "POST");
     }
 }
