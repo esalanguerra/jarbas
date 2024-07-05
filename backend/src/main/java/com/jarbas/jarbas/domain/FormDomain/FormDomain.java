@@ -7,10 +7,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import jakarta.persistence.OneToMany;
 
 @Entity
-@Table(name = "form_domain")
+@Table(name = "form_domains")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class FormDomain {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

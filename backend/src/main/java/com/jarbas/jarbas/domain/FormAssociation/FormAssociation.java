@@ -5,12 +5,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import jakarta.persistence.OneToMany;
 
 import com.jarbas.jarbas.domain.FormDomain.FormDomain;
 
 @Entity
-@Table(name = "form_association")
+@Table(name = "form_associations")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class FormAssociation {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
