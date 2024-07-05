@@ -26,9 +26,9 @@ public class FormAssociation {
   private Long id;
 
   @OneToMany
-  private FormDomain[] domains;
+  private FormDomain[] formDomains;
 
-  private int redirectId;
+  private Integer redirectId;
 
   public Long getId() {
     return id;
@@ -39,11 +39,11 @@ public class FormAssociation {
   }
 
   public FormDomain[] getDomains() {
-    return domains;
+    return formDomains;
   }
 
-  public void setDomains(FormDomain[] domains) {
-    this.domains = domains;
+  public void setDomains(FormDomain[] formDomains) {
+    this.formDomains = formDomains;
   }
 
   public int getRedirectId() {
