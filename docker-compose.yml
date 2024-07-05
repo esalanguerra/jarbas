@@ -6,3 +6,13 @@ services:
       MYSQL_DATABASE: jarbas
     ports:
       - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - 8081:80
+    depends_on:
+      - mysql
