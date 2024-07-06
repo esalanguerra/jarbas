@@ -1,6 +1,6 @@
 "use client";
-import {firebaseConfig} from "@jarbas/config/FirebaseConfig";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { firebaseConfig } from "@jarbas/config/FirebaseConfig";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider } from "firebase/auth";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
@@ -27,11 +27,16 @@ export default function Login() {
     }
   }
 
+  async function onSubmitGoogle() {}
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="text" {...register("email")} />
       <input type="password" {...register("password")} />
       <button type="submit">Login</button>
+      <button type="button" onClick={onSubmitGoogle}>
+        Login with Google
+      </button>
     </form>
   );
 }
