@@ -1,9 +1,6 @@
-// Preciso pegar os inputs no banco de dados
-// listar esses inputs
-// criar um form com esses inputs de select
 "use client";
 import { firebaseConfig } from "@jarbas/config/FirebaseConfig";
-import { collection, getFirestore, addDoc, getDoc, getDocs } from "firebase/firestore";
+import { collection, getFirestore, addDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IFormInputInterface } from "@jarbas/interfaces/IFormInputInterface";
@@ -15,11 +12,13 @@ async function onSubmit(data: any) {
   try {
     const collectionRef = collection(database, 'formDomains');
 
-    const docRef = await addDoc(collectionRef, data);
+    const docRef = await addDoc(collectionRef, {
+      ...data,
+      inputs: data.inputs || []
+    });
 
     console.log(docRef);
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
   }
 }
@@ -28,12 +27,11 @@ export default function CreateForms() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const [inputs, setInputs] = useState<IFormInputInterface[]>([]);
-  const [formDomains, setFormInputs] = useState<IFormInterface[]>([]);
+  const [formDomains, setFormDomains] = useState<IFormInterface[]>([]);
 
   useEffect(() => {
     async function getInputs() {
@@ -65,7 +63,7 @@ export default function CreateForms() {
         };
       });
 
-      setFormInputs(formDomains);
+      setFormDomains(formDomains);
     }
 
     getInputs();
@@ -77,7 +75,7 @@ export default function CreateForms() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="text" placeholder='Título do Form' {...register('title')} />
       <input type="text" placeholder='Descrição do Form' {...register('description')} />
-      <select {...register('inputs')}>
+      <select multiple {...register('inputs')}>
         {
           inputs.map(input => (
             <option key={input.sub} value={input.sub}>{input.title}</option>
@@ -95,4 +93,3 @@ export default function CreateForms() {
     </form>
   );
 }
-
