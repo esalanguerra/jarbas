@@ -1,4 +1,4 @@
-import { JasbasDatabase } from "@jarbas/libs/firebase";
+import { JarbasDatabase } from "@jarbas/libs/firebase";
 import { collection } from "firebase/firestore";
 
 export const collectionsRefFirebase = {
@@ -6,6 +6,6 @@ export const collectionsRefFirebase = {
   formInputs: 'formInputs'
 };
 
-export const collectionsRefFormDomains = collection(JasbasDatabase, collectionsRefFirebase.formDomains);
+export const collectionsRefFormDomains = collection(JarbasDatabase, collectionsRefFirebase.formDomains);
 
-export const collectionsRefFormInputs = collection(JasbasDatabase, collectionsRefFirebase.formInputs);
+export const collectionsRefFormInputs = collection(JarbasDatabase, collectionsRefFirebase.formInputs);

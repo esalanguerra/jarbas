@@ -1,10 +1,10 @@
 "use client";
-import { firebaseConfig } from "@jarbas/config/FirebaseConfig";
+import { AppFirebase } from "@jarbas/libs/firebase/AppFirebase";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider } from "firebase/auth";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const auth = getAuth(firebaseConfig);
+  const auth = getAuth(AppFirebase);
 
   const {
     register,
