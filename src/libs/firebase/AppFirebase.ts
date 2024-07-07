@@ -1,4 +1,4 @@
-import { firebaseConstants } from "@jarbas/constants/FirebaseConstants";
+import { firebaseConstants } from "@jarbas/constants";
 import { initializeApp, getApps } from "firebase/app";
 
 export const AppFirebase = getApps()

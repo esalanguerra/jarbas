@@ -1,3 +1,3 @@
-export const GptConstants = {
+export const gptConstants = {
   apiKey: ""
 }
