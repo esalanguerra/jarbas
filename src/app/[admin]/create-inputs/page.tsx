@@ -1,10 +1,10 @@
 "use client";
-import { JasbasFirebase } from '@jarbas/libs/firebase';
+import { JarbasFirebase } from '@jarbas/libs/firebase';
 import { addDoc, collection, getFirestore } from 'firebase/firestore'
 import { useForm } from "react-hook-form";
 
 export default function CreateInputs() {
-  const database = getFirestore(JasbasFirebase);
+  const database = getFirestore(JarbasFirebase);
 
   const collectionRef = collection(database, 'formInputs');
 

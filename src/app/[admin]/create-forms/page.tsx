@@ -1,15 +1,13 @@
 "use client";
-import { collection, getFirestore, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IFormInputInterface } from "@jarbas/interfaces/IFormInputInterface";
 import { IFormInterface } from "@jarbas/interfaces/IFormInterface";
-import { JasbasDatabase, JarbasCollections, JarbasFormDomainsCollections, JarbasFormInputsCollections } from "@jarbas/libs/firebase";
+import { JarbasDatabase, JarbasFormDomainsCollections, JarbasFormInputsCollections } from "@jarbas/libs/firebase";
 
 async function onSubmit(data: any) {
   try {
-    const collectionRef = collection(JasbasDatabase, 'formDomains');
-
     const docRef = await addDoc(JarbasFormDomainsCollections, {
       ...data,
       inputs: data.inputs || []
@@ -33,8 +31,6 @@ export default function CreateForms() {
 
   useEffect(() => {
     async function getInputs() {
-      const collectionRef = collection(JasbasDatabase, 'formInputs');
-
       const inputsSnapshot = await getDocs(JarbasFormInputsCollections);
 
       const inputs = inputsSnapshot.docs.map(doc => {
@@ -49,7 +45,7 @@ export default function CreateForms() {
     }
 
     async function getFormDomains() {
-      const collectionRef = collection(JasbasDatabase, 'formDomains');
+      const collectionRef = collection(JarbasDatabase, 'formDomains');
 
       const formDomainsSnapshot = await getDocs(collectionRef);
 
