@@ -1,12 +1,14 @@
 "use client";
-import { AppFirebase } from "@jarbas/libs/firebase/AppFirebase";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider } from "firebase/auth";
+
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
+import { JarbasAuth, JarbasFirebase } from "@jarbas/libs/firebase";
+import { useState } from "react";
 
 export default function Login() {
-  const auth = getAuth(AppFirebase);
+  const [user, setUser] = useState<any>();
 
   const {
     register,
@@ -14,10 +16,10 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  async function onSubmit(data: any) {
+  async function onSubmitEmailAndPassword(data: any) {
     try {
       const userCredential = await createUserWithEmailAndPassword(
-        auth,
+        JarbasAuth,
         data.email,
         data.password
       );
@@ -27,7 +29,17 @@ export default function Login() {
     }
   }
 
-  async function onSubmitGoogle() {}
+  async function onSubmitGoogle() {
+    try {
+      const provider = new GoogleAuthProvider();
+
+      const userCredential = await signInWithPopup(JarbasAuth, provider);
+
+      setUser(userCredential.user);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/images/background_login.png')" }}>
@@ -39,7 +51,7 @@ export default function Login() {
           </p>
         </div>
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full py-8">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-8 ">
+          <form onSubmit={handleSubmit(onSubmitEmailAndPassword)} className="space-y-4 py-8 ">
             <div className="py-2">
               <label className="block text-sm font-medium text-gray-700 ">Email</label>
               <input
@@ -74,7 +86,7 @@ export default function Login() {
               className="w-full bg-white text-black py-2 rounded-md shadow-sm border flex items-center justify-center space-x-2 hover:bg-gray-100"
             >
               <FontAwesomeIcon icon={faGoogle} className="w-5 h-5" />
-              <span>Sign in with Google</span>
+              <span>Login com Google</span>
             </button>
             <div className="text-center text-gray-500 mt-2">OR</div>
             <button
@@ -82,7 +94,7 @@ export default function Login() {
               className="w-full bg-black text-white py-2 rounded-md shadow-sm flex items-center justify-center space-x-2 hover:bg-gray-800"
             >
               <FontAwesomeIcon icon={faApple} className="w-5 h-5" />
-              <span>Sign in with Apple</span>
+              <span>Login com Apple</span>
             </button>
           </div>
         </div>
