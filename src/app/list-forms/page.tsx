@@ -2,7 +2,7 @@
 
 import { JarbasFormDomainsCollections } from '@jarbas/libs/firebase';
 import { useEffect, useState } from 'react';
-import { doc, getDocs } from 'firebase/firestore';
+import { getDocs } from 'firebase/firestore';
 import { IFormInterface } from '@jarbas/interfaces/IFormInterface';
 
 export default function ListForms() {
