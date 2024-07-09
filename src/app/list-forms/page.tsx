@@ -38,7 +38,11 @@ export default function ListForms() {
           {
             formDomains.map(formDomain => (
               <tr key={formDomain.sub}>
-                <td>{formDomain.title}</td>
+                <td>
+                  <a href={`/view-form/${formDomain.sub}`}>
+                    {formDomain.title}
+                  </a>
+                </td>
                 <td>{formDomain.description}</td>
               </tr>
             ))
