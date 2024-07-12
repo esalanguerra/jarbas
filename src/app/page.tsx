@@ -47,6 +47,10 @@ export default function Page() {
     alert("Documento excluído com sucesso!");
   }
 
+  function goCreateDocument() {
+    window.location.href = "/create-doc";
+  }
+
   return (
     <div className="min-h-screen flex bg-gray-100">
       <div
@@ -99,7 +103,10 @@ export default function Page() {
               <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
                   <div className="border-4 border-yellow-500 rounded-lg h-48 flex items-center justify-center">
-                    <button className="flex flex-col items-center space-y-2 text-yellow-500 hover:text-yellow-600">
+                    <button
+                      onClick={goCreateDocument}
+                      className="flex flex-col items-center space-y-2 text-yellow-500 hover:text-yellow-600"
+                    >
                       <FontAwesomeIcon icon={faPlus} className="w-8 h-8" />
                       <span className="text-lg">Gerar novo documento</span>
                     </button>
