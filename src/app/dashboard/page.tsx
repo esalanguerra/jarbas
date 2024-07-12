@@ -1,23 +1,49 @@
 'use client'
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faDownload, faTrash, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const mockDocuments = [
-  { id: 1, name: 'Documento do Carlinhos', date: '8/12/2024 14:45', type: 'Documento tipo 1' },
-  { id: 2, name: 'Documento do Carlinhos', date: '8/12/2024 14:45', type: 'Documento tipo 1' },
-  { id: 3, name: 'Documento do Carlinhos', date: '8/12/2024 14:45', type: 'Documento tipo 1' },
-  { id: 4, name: 'Documento do Carlinhos', date: '8/12/2024 14:45', type: 'Documento tipo 1' },
-  { id: 5, name: 'Documento do Carlinhos', date: '8/12/2024 14:45', type: 'Documento tipo 1' },
-  { id: 6, name: 'Documento do Carlinhos', date: '8/12/2024 14:45', type: 'Documento tipo 1' },
-];
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faDownload, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { JarbasDocsCollections } from '@jarbas/libs/firebase';
+import { getDocs, Timestamp } from 'firebase/firestore';
+
+interface IDocumentsInterface {
+  sub?: string;
+  name?: string;
+  date?: string;
+  type?: string;
+}
 
 export default function Dashboard() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [documents, setDocuments] = useState<IDocumentsInterface[]>([]);
+
+  useEffect(() => {
+    async function getFormDomains() {
+      const documents = await getDocs(JarbasDocsCollections);
+
+      const documentsData = documents.docs.map(doc => {
+        const data = doc.data();
+        const date = data.date instanceof Timestamp ? data.date.toDate().toLocaleDateString() : data.date; // Convert Timestamp to date string
+        return {
+          ...data,
+          sub: doc.id,
+          date: date
+        };
+      });
+
+      setDocuments(documentsData);
+    }
+
+    getFormDomains();
+  }, []);
+
+  function downloadDocument() {}
+
+  function deleteDocument() {}
+  
 
   return (
     <div className="min-h-screen flex bg-gray-100">
-      {/* Sidebar */}
       <div className={`fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}>
         <div className="flex justify-between items-center p-4">
           <h1 className="text-2xl font-bold text-gray-900">Menu</h1>
@@ -30,8 +56,6 @@ export default function Dashboard() {
           <a href="#" className="text-gray-700 hover:bg-gray-200 rounded-lg px-2 py-1">Ajuda</a>
         </nav>
       </div>
-
-      {/* Main content */}
       <div className="flex-1 flex flex-col">
         <header className="bg-white shadow w-full">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -42,7 +66,6 @@ export default function Dashboard() {
             <img src="https://via.placeholder.com/40" alt="User avatar" className="ml-4 rounded-full" />
           </div>
         </header>
-
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
             <div className="py-4">
@@ -57,12 +80,11 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-
             <div className="py-4">
               <h2 className="text-2xl font-semibold text-gray-700">Documentos recentes</h2>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {mockDocuments.map((doc) => (
-                  <div key={doc.id} className="bg-white shadow rounded-lg overflow-hidden">
+                {documents.map((doc) => (
+                  <div key={doc.sub} className="bg-white shadow rounded-lg overflow-hidden">
                     <div className="p-4 flex flex-col h-full justify-between">
                       <div className="min-h-[200px] flex items-center justify-center">
                         <p className="text-center text-gray-500">PRÉ-VISUALIZAÇÃO DE DOCUMENTO PADRÃO</p>
