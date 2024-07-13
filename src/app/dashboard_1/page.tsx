@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';  // Note the import change
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faDownload } from '@fortawesome/free-solid-svg-icons';
 import Menu from '../menu/page';
+import Doc from '../../../public/images/doc_default.png';
 
 const mockDocuments = [
   { id: 1, name: 'Documento do Carlinhos', date: '8/12/2024 14:45', type: 'Documento tipo 1' },
@@ -23,7 +24,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen flex">
       <div className="flex-1 flex flex-col">
         <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
@@ -49,33 +50,39 @@ const Dashboard: React.FC = () => {
               <h2 className="text-2xl font-semibold text-gray-700">Documentos recentes</h2>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {mockDocuments.map((doc) => (
-                  <div key={doc.id} className="bg-white shadow rounded-lg overflow-hidden">
-                    <div className="p-4 flex flex-col h-full justify-between">
-                      <div className="min-h-[200px] flex items-center justify-center">
-                        <p className="text-center text-gray-500">PRÉ-VISUALIZAÇÃO DE DOCUMENTO PADRÃO</p>
-                      </div>
-                      <div style={{ background: 'linear-gradient(to right, #333, #000)' }} className="p-4 mt-4 flex flex-col justify-between flex-grow">
-                        <div>
-                          <h3 className="text-lg font-semibold text-white">{doc.name}</h3>
-                          <p style={{ color: '#A3A3A3' }}>Criado dia {doc.date}</p>
-                          <p style={{ color: '#A3A3A3' }}>{doc.type}</p>
-                        </div>
-                        <div className="flex justify-start items-center mt-5">
-                          <button style={{ color: 'rgba(234, 179, 8, 1)' }} className="hover:text-red-700 mr-4">
-                            Excluir
-                          </button>
-                          <button className="bg-yellow-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-yellow-600 flex items-center space-x-2">
-                            <FontAwesomeIcon icon={faDownload} className="w-5 h-5" />
-                            <span>Download</span>
-                          </button>
+                  <div className="flex mb-10 flex-col justify-center items-center bg-white ">
+                  <div className="bg-white shadow rounded-lg overflow-hidden mb-6 w-full max-w-lg">
+                    <div className="relative bg-gray-100 flex items-center justify-center" style={{ paddingTop: '56.25%' }}>
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                        style={{
+                          backgroundImage: `url(${Doc.src})`,
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-gray-800 bg-opacity-70 flex flex-col justify-center items-center p-4">
+                          <h3 className="text-2xl font-semibold text-white">Documento do carlinhos</h3>
                         </div>
                       </div>
                     </div>
+                    <div style={{ background: 'linear-gradient(to right, #333, #000)' }} className="p-5 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">Documento tipo 1</h3>
+                        <p style={{ color: '#A3A3A3' }}>Criado dia 8/12/2024 14:45</p>
+                      </div>
+
+                      <div className="flex mt-3">
+                      <button className="mr-5 mt-3 text-yellow-500 rounded-lg shadow-md  hover:text-white transition-colors duration-300 flex items-center justify-center">
+                      Excluir
+                    </button>
+                    <button className="mr-3 p-3 mt-3 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-300">
+                      Download
+                    </button>
                   </div>
+                    </div>
+                    
+                  </div>
+                </div>
                 ))}
-                <button className="bg-yellow-500 text-white py-2 px-4 rounded-md shadow-sm flex items-center justify-center hover:bg-yellow-600 cursor-pointer">
-                  <span>Todos os documentos gerados</span>
-                </button>
               </div>
             </div>
           </div>

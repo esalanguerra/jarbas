@@ -48,7 +48,7 @@ export default function Page() {
   }
 
   function goCreateDocument() {
-    window.location.href = "/create-doc";
+    window.location.href = "/generate-document";
   }
 
   return (
